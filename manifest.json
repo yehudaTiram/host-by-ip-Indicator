@@ -1,0 +1,17 @@
+{
+  "description": "This extension meant for developers and others, who need a clear distinction of the current page host IP. IT allows you to see the host IP of current websites and custom text by adding a colored label to all pages of the site. Good for UIs that look the same on many places, but are actually different sites (like Wordpress, Cpanel and alike ).",
+  "manifest_version": 2,
+  "name": "Host by IP Indicator",
+  "version": "1.0",
+  "homepage_url": "https://github.com/yehudaTiram",
+  "icons": {
+    "48": "icons/host-by-ip-Indicator-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["host-by-ip-Indicator.js"]
+    }
+  ]
+}
