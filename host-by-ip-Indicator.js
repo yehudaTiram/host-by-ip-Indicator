@@ -1,30 +1,68 @@
-
-
 /** @format */
-/**
- * https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Match_patterns
- */
 
-const hostname = window.location.host;
+const allowedWebsites = [
+  "https://([^/]+).local/*",
+  "https://164.90.221.46:2031/*",
+  "https://atr1.hostman.co.il:2087/*",
+];
 
-// Add a visual indicator using the hostname
-document.body.style.border = `5px solid ${getBorderColor(hostname)}`;
+function createHostIndicator(hostText) {
+  const div = document.createElement("div");
+  div.id = "host-by-ip-Indicator";
+  div.style.cssText = `
+    text-shadow: -1px -1px 0 #555, 1px -1px 0 #555, -1px 1px 0 #555, 1px 1px 0 #555;
+    position: fixed;
+    right: -72px;
+    bottom: 45px;
+    transform: rotate(-45deg);
+    background-color: #B2DD07;
+    opacity: 0.9;
+    z-index: 2147483647;
+    height: 55px;
+    width: 290px;
+    overflow-x: hidden;
+    box-shadow: 7px 0px 9px #000;
+    color: #fff;
+    pointer-events: none;
+  `;
 
-function getBorderColor(host) {
-  // You can define your logic here to assign different border colors
-  // based on the hostname. For example:
+  const textDiv = document.createElement("div");
+  textDiv.id = "host-by-ip-Indicator-text";
+  textDiv.style.cssText = `
+    margin: 0px 45px;
+    line-height: 55px;
+    height: 100%;
+    width: calc(100% - 90px);
+    overflow: hidden;
+    text-align: center;
+  `;
 
-  // if (host.includes("google")) {
-  //   return "blue";
-  // } else if (host.includes("facebook")) {
-  //   return "red";
-  // } else {
-  //   return "green";
-  // }
+  const span = document.createElement("span");
+  span.classList.add("textFitted");
+  span.style.cssText = `
+    display: inline-block;
+    text-align: center;
+    font-size: 21px;
+  `;
 
-  // Replace with your desired default color
-  return "orange";
+  // Replace "basmat-eden hetzner" with your actual logic to display the hostname
+  span.textContent = hostText;
+
+  textDiv.appendChild(span);
+  div.appendChild(textDiv);
+
+  document.body.appendChild(div);
 }
 
-// This is just an example, modify it to show the hostname in a way you prefer
-console.log("Current hostname:", hostname);
+function isWebsiteAllowed(url) {
+  for (const allowedWebsite of allowedWebsites) {
+    if (new RegExp(allowedWebsite).test(url)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+if (isWebsiteAllowed(window.location.href)) {
+  createHostIndicator(window.location.host);
+}
