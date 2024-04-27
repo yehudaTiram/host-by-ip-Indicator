@@ -1,7 +1,7 @@
 /** @format */
 
 const allowedWebsites = [
-  "https://([^/]+).local/*",
+  "https://([^/]+)\.local/*",
   "https://164.90.221.46:2031/*",
   "https://atr1.hostman.co.il:2087/*",
 ];

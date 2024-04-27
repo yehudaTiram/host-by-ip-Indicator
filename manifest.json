@@ -7,7 +7,12 @@
   "icons": {
     "48": "icons/host-by-ip-Indicator-48.png"
   },
-
+  "permissions": ["activeTab", "storage"],
+  "browser_action": {
+    "default_icon": "icons/host-by-ip-Indicator-48.png",
+    "default_title": "Host Indicator",
+    "default_popup": "popup/host-Indicator.html"
+  },
   "content_scripts": [
     {
       "matches": ["*://*/*"],
